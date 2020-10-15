@@ -1,0 +1,41 @@
+{
+    "name": "dbfun/jwtapi",
+    "description": "Obtaining Jwt tokens via API by login and password",
+    "license": "LGPL-3.0",
+    "homepage": "https://github.com/dbfun/jwtapi",
+    "keywords": [
+        "Laravel",
+        "JwtApi"
+    ],
+    "version": "0.0.1",
+    "require": {
+        "illuminate/support": "~8",
+        "laravel/passport": "^10.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "~8.0|~9.0",
+        "mockery/mockery": "^1.1",
+        "orchestra/testbench": "~3|~4|~5|~6",
+        "sempro/phpunit-pretty-print": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dbfun\\JwtApi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dbfun\\JwtApi\\Tests\\": "tests"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Dbfun\\JwtApi\\JwtApiServiceProvider"
+            ],
+            "aliases": {
+                "JwtApi": "Dbfun\\JwtApi\\Facades\\JwtApi"
+            }
+        }
+    }
+}
