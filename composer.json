@@ -10,6 +10,7 @@
     "version": "0.0.1",
     "require": {
         "illuminate/support": "~8",
+        "lcobucci/jwt": "^3.4|^4.0",
         "laravel/passport": "^10.0"
     },
     "require-dev": {
