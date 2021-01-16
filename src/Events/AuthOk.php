@@ -2,8 +2,8 @@
 
 namespace Dbfun\JwtApi\Events;
 
-use Illuminate\Foundation\Auth\User;
 use Illuminate\Broadcasting\InteractsWithSockets;
+use Illuminate\Foundation\Auth\User;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
 

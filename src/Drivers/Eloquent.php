@@ -3,8 +3,8 @@
 namespace Dbfun\JwtApi\Drivers;
 
 use Dbfun\JwtApi\Exceptions\InvalidCredentialsException;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Foundation\Auth\User;
+use Illuminate\Support\Facades\Hash;
 
 class Eloquent extends AbstractUserDriver
 {

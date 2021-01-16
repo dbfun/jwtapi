@@ -3,10 +3,7 @@
 namespace Dbfun\JwtApi\Passport;
 
 use Lcobucci\JWT\Builder;
-use Lcobucci\JWT\Signer\Key;
-use Lcobucci\JWT\Signer\Rsa\Sha256;
 use Lcobucci\JWT\Token;
-use League\OAuth2\Server\CryptKey;
 use League\OAuth2\Server\Entities\Traits\AccessTokenTrait;
 use League\OAuth2\Server\Entities\Traits\EntityTrait;
 use League\OAuth2\Server\Entities\Traits\TokenEntityTrait;
@@ -21,9 +18,9 @@ class AccessToken extends \Laravel\Passport\Bridge\AccessToken
 
     protected $claims = [];
 
-    public function __toString()
+    public function __toString(): string
     {
-        return (string)$this->convertToJWT($this->privateKey);
+        return $this->convertToJWT()->toString();
     }
 
     public function addClaim(string $claim, $value): self
@@ -35,19 +32,19 @@ class AccessToken extends \Laravel\Passport\Bridge\AccessToken
     /**
      * Generate a JWT from the access token
      *
-     * @param CryptKey $privateKey
-     *
      * @return Token
      * @see \League\OAuth2\Server\Entities\Traits\AccessTokenTrait::convertToJWT
      */
-    private function convertToJWT(CryptKey $privateKey)
+    private function convertToJWT()
     {
-        $builder = (new Builder())
+        $this->initJwtConfiguration();
+
+        $builder = $this->jwtConfiguration->builder()
             ->permittedFor($this->getClient()->getIdentifier())
             ->identifiedBy($this->getIdentifier())
-            ->issuedAt(\time())
-            ->canOnlyBeUsedAfter(\time())
-            ->expiresAt($this->getExpiryDateTime()->getTimestamp())
+            ->issuedAt(new \DateTimeImmutable())
+            ->canOnlyBeUsedAfter(new \DateTimeImmutable())
+            ->expiresAt($this->getExpiryDateTime())
             ->relatedTo((string)$this->getUserIdentifier())
             ->withClaim('scopes', $this->getScopes());
 
@@ -55,7 +52,7 @@ class AccessToken extends \Laravel\Passport\Bridge\AccessToken
             $builder->withClaim($claim, $value);
         }
 
-        return $builder->getToken(new Sha256(), new Key($privateKey->getKeyPath(), $privateKey->getPassPhrase()));
+        return $builder->getToken($this->jwtConfiguration->signer(), $this->jwtConfiguration->signingKey());
     }
 
 }

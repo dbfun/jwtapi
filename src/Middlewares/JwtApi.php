@@ -8,12 +8,12 @@ use Dbfun\JwtApi\Events\AuthOk;
 use Dbfun\JwtApi\Exceptions\EmptyLoginException;
 use Dbfun\JwtApi\Exceptions\EmptyPasswordException;
 use Dbfun\JwtApi\Exceptions\InvalidCredentialsException;
+use Exception;
 use Illuminate\Auth\Middleware\Authenticate as Middleware;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
-use Exception;
 
 class JwtApi extends Middleware
 {
